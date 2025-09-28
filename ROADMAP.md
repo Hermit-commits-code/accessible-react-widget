@@ -4,11 +4,11 @@ This roadmap tracks major phases and mini-roadmaps for complex steps. Update as 
 
 ## Phase 1: Core Widget
 
-- [ ] DOM scanning logic
-  - [ ] Scan for images missing alt text
-  - [ ] Scan for buttons missing accessible labels
-  - [ ] Scan for links missing descriptive text
-  - [ ] Scan for form fields missing labels
+- [x] DOM scanning logic
+  - [x] Scan for images missing alt text
+  - [x] Scan for buttons missing accessible labels
+  - [x] Scan for links missing descriptive text
+  - [x] Scan for form fields missing labels
 - [ ] Rule-based fix engine
   - [ ] Auto-add alt text to images (with placeholder)
   - [ ] Auto-add aria-label to buttons/links
@@ -38,7 +38,7 @@ This roadmap tracks major phases and mini-roadmaps for complex steps. Update as 
 
 #### Core Widget: Scanning Logic & Auto-Fixing
 
-- [ ] Expand scanning logic to cover:
+- [x] Expand scanning logic to cover:
   - Images without alt text
   - Buttons without accessible labels
   - Links without descriptive text

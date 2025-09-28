@@ -16,10 +16,32 @@ document.body.innerHTML = `
   <a href="#" aria-label="Accessible Link"></a>
   <a href="#" aria-labelledby="label2"></a>
   <span id="label2">Labelled by link span</span>
+  <input type="text" />
+  <input type="text" id="field1" />
+  <label for="field1">Label for field1</label>
+  <input type="text" aria-label="Accessible Input" />
+  <input type="text" aria-labelledby="label3" />
+  <span id="label3">Labelled by input span</span>
+  <label><input type="text" /></label>
+  <select></select>
+  <textarea></textarea>
 `;
+test("finds form fields missing labels", () => {
+  render(<AccessibilityWidget />);
+  expect(screen.getByText(/Form field missing label/i)).toBeInTheDocument();
+});
+
+test("does not report form fields with labels or accessible attributes", () => {
+  render(<AccessibilityWidget />);
+  expect(screen.queryByText(/Label for field1/)).not.toBeNull();
+  expect(screen.queryByText(/Accessible Input/)).not.toBeNull();
+  expect(screen.queryByText(/Labelled by input span/)).not.toBeNull();
+});
 test("finds links missing descriptive text", () => {
   render(<AccessibilityWidget />);
-  expect(screen.getByText(/Link missing descriptive text/i)).toBeInTheDocument();
+  expect(
+    screen.getByText(/Link missing descriptive text/i)
+  ).toBeInTheDocument();
 });
 
 test("does not report links with descriptive text or accessible labels", () => {

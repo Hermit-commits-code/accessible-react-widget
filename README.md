@@ -1,3 +1,7 @@
+- Scans for links missing descriptive text (empty, whitespace, or lacking aria-label/aria-labelledby)
+  +- Scans for links missing descriptive text (empty, whitespace, or lacking aria-label/aria-labelledby)
+- Scans for form fields missing labels (input, select, textarea)
+
 # Accessible React Widget
 
 ## Table of Contents

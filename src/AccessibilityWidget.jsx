@@ -48,6 +48,38 @@ function scanForAccessibilityIssues() {
       });
     }
   });
+  // Scan for form fields missing labels
+  const formFields = document.querySelectorAll("input, select, textarea");
+  formFields.forEach((field) => {
+    // Ignore hidden, type="hidden", or disabled fields
+    if (field.type === "hidden" || field.disabled) return;
+    // Check for label association
+    const id = field.getAttribute("id");
+    let hasLabel = false;
+    if (id) {
+      // Look for <label for="id">
+      const label = document.querySelector(`label[for="${id}"]`);
+      if (label) hasLabel = true;
+    }
+    // Look for parent <label>
+    if (!hasLabel && field.closest("label")) {
+      hasLabel = true;
+    }
+    // Check aria-label and aria-labelledby
+    const hasAriaLabel =
+      field.hasAttribute("aria-label") &&
+      field.getAttribute("aria-label").trim().length > 0;
+    const hasAriaLabelledBy =
+      field.hasAttribute("aria-labelledby") &&
+      field.getAttribute("aria-labelledby").trim().length > 0;
+    if (!hasLabel && !hasAriaLabel && !hasAriaLabelledBy) {
+      issues.push({
+        type: "missing-field-label",
+        element: field,
+        message: "Form field missing label",
+      });
+    }
+  });
   return issues;
 }
 

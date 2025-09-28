@@ -1,7 +1,14 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+
+## [0.4.0] - 2025-09-28
+
+- Added scanning for form fields missing labels (input, select, textarea)
+- Added automated tests for form field label detection
+
 ## [0.3.0] - 2025-09-28
+
 - Added scanning for links missing descriptive text (empty, whitespace, or lacking aria-label/aria-labelledby)
 - Added automated tests for link descriptive text detection
 
