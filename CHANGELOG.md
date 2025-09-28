@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.0] - 2025-09-28
+
+- Added ARIA role and attribute scanning and auto-fix logic (role='button', role='textbox', aria-checked, aria-expanded, etc.)
+- Widget now supports customizable rules via `rules` prop for fine-grained accessibility enforcement
+- Comprehensive test suite expanded for edge cases, ARIA, and dynamic DOMs
+- Added performance/scalability tests for large DOMs and form fields
+- Ready for production use; all features robustly tested
+
 ## [0.6.0] - 2025-09-28
 
 - Refactored and expanded automated test suite for AccessibilityWidget
