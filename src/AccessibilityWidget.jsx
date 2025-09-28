@@ -12,7 +12,23 @@ function scanForAccessibilityIssues() {
       });
     }
   });
-  // Add more rules here as needed
+  // Scan for buttons missing accessible labels
+  document.querySelectorAll("button").forEach((btn) => {
+    const hasText = btn.textContent && btn.textContent.trim().length > 0;
+    const hasAriaLabel =
+      btn.hasAttribute("aria-label") &&
+      btn.getAttribute("aria-label").trim().length > 0;
+    const hasAriaLabelledBy =
+      btn.hasAttribute("aria-labelledby") &&
+      btn.getAttribute("aria-labelledby").trim().length > 0;
+    if (!hasText && !hasAriaLabel && !hasAriaLabelledBy) {
+      issues.push({
+        type: "missing-button-label",
+        element: btn,
+        message: "Button missing accessible label",
+      });
+    }
+  });
   return issues;
 }
 

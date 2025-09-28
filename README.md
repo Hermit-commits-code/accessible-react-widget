@@ -16,6 +16,7 @@ An embeddable, rule-based accessibility widget for React/SPAs that automatically
 ## Features
 
 - DOM auto-fixing for accessibility issues
+- Scans for buttons missing accessible labels (text, aria-label, aria-labelledby)
 - Mutation observer for dynamic content
 - Extension/bookmarklet for rapid testing
 - Sandbox sites for validation
