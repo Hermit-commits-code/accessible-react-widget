@@ -21,6 +21,7 @@ An embeddable, rule-based accessibility widget for React/SPAs that automatically
 - Sandbox sites for validation
 - Logging and undo/redo for fixes
 - CLI for source code suggestions/PR creation
+- Automated tests with Jest and React Testing Library
 
 ## Getting Started
 
@@ -29,8 +30,12 @@ An embeddable, rule-based accessibility widget for React/SPAs that automatically
    npm install
    npm run dev
    ```
-2. See the ROADMAP.md for development phases and tasks.
-3. All changes are tracked in CHANGELOG.md.
+2. Run automated tests:
+   ```bash
+   npm test
+   ```
+3. See the ROADMAP.md for development phases and tasks.
+4. All changes are tracked in CHANGELOG.md.
 
 ## Roadmap
 

@@ -5,8 +5,17 @@ This roadmap tracks major phases and mini-roadmaps for complex steps. Update as 
 ## Phase 1: Core Widget
 
 - [ ] DOM scanning logic
+  - [ ] Scan for images missing alt text
+  - [ ] Scan for buttons missing accessible labels
+  - [ ] Scan for links missing descriptive text
+  - [ ] Scan for form fields missing labels
 - [ ] Rule-based fix engine
+  - [ ] Auto-add alt text to images (with placeholder)
+  - [ ] Auto-add aria-label to buttons/links
+  - [ ] Auto-associate labels with form fields
 - [ ] Mutation observer setup
+  - [ ] Monitor DOM for dynamic content changes
+  - [ ] Re-scan and auto-fix on mutations
 
 ## Phase 2: Sandbox Sites
 
@@ -27,4 +36,17 @@ This roadmap tracks major phases and mini-roadmaps for complex steps. Update as 
 
 ### Mini-Roadmaps
 
-- Add detailed breakdowns for each phase as work progresses.
+#### Core Widget: Scanning Logic & Auto-Fixing
+
+- [ ] Expand scanning logic to cover:
+  - Images without alt text
+  - Buttons without accessible labels
+  - Links without descriptive text
+  - Form fields without labels
+- [ ] Implement auto-fix logic for each issue:
+  - Add placeholder alt text to images
+  - Add aria-label to buttons/links
+  - Associate labels with form fields
+- [ ] Test fixes in the widget UI
+- [ ] Document all rules and fixes in README.md
+- [ ] Update CHANGELOG.md and bump version after each feature
