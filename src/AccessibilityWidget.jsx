@@ -29,6 +29,25 @@ function scanForAccessibilityIssues() {
       });
     }
   });
+
+  // Scan for links missing descriptive text
+  document.querySelectorAll("a").forEach((link) => {
+    const hasText = link.textContent && link.textContent.trim().length > 0;
+    const hasAriaLabel =
+      link.hasAttribute("aria-label") &&
+      link.getAttribute("aria-label").trim().length > 0;
+    const hasAriaLabelledBy =
+      link.hasAttribute("aria-labelledby") &&
+      link.getAttribute("aria-labelledby").trim().length > 0;
+    // Optionally, check for only icon children (not implemented here)
+    if (!hasText && !hasAriaLabel && !hasAriaLabelledBy) {
+      issues.push({
+        type: "missing-link-description",
+        element: link,
+        message: "Link missing descriptive text",
+      });
+    }
+  });
   return issues;
 }
 

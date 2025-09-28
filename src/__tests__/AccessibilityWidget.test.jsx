@@ -10,7 +10,24 @@ document.body.innerHTML = `
   <button aria-label="Accessible Button"></button>
   <button aria-labelledby="label1"></button>
   <span id="label1">Labelled by span</span>
+  <a href="#"></a>
+  <a href="#">   </a>
+  <a href="#">Descriptive Link</a>
+  <a href="#" aria-label="Accessible Link"></a>
+  <a href="#" aria-labelledby="label2"></a>
+  <span id="label2">Labelled by link span</span>
 `;
+test("finds links missing descriptive text", () => {
+  render(<AccessibilityWidget />);
+  expect(screen.getByText(/Link missing descriptive text/i)).toBeInTheDocument();
+});
+
+test("does not report links with descriptive text or accessible labels", () => {
+  render(<AccessibilityWidget />);
+  expect(screen.queryByText(/Descriptive Link/)).not.toBeNull();
+  expect(screen.queryByText(/Accessible Link/)).not.toBeNull();
+  expect(screen.queryByText(/Labelled by link span/)).not.toBeNull();
+});
 
 test("finds images missing alt text", () => {
   render(<AccessibilityWidget />);
