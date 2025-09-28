@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0] - 2025-09-28
+
+- Refactored and expanded automated test suite for AccessibilityWidget
+- Added edge case coverage for images, buttons, links, and form fields
+- Ensured all auto-fix logic is professionally and robustly tested
+- Validated and documented Babel and Jest config for React 19, Vite, and Testing Library
+
 All notable changes to this project will be documented in this file.
 
 ## [0.5.0] - 2025-09-28

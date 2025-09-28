@@ -24,10 +24,12 @@ function scanForAccessibilityIssues() {
       btn.hasAttribute("aria-labelledby") &&
       btn.getAttribute("aria-labelledby").trim().length > 0;
     if (!hasText && !hasAriaLabel && !hasAriaLabelledBy) {
+      // Auto-fix: add placeholder aria-label
+      btn.setAttribute("aria-label", "Accessible button");
       issues.push({
-        type: "missing-button-label",
+        type: "missing-button-label-fixed",
         element: btn,
-        message: "Button missing accessible label",
+        message: "Button missing accessible label (auto-fixed)",
       });
     }
   });
@@ -43,10 +45,12 @@ function scanForAccessibilityIssues() {
       link.getAttribute("aria-labelledby").trim().length > 0;
     // Optionally, check for only icon children (not implemented here)
     if (!hasText && !hasAriaLabel && !hasAriaLabelledBy) {
+      // Auto-fix: add placeholder aria-label
+      link.setAttribute("aria-label", "Accessible link");
       issues.push({
-        type: "missing-link-description",
+        type: "missing-link-description-fixed",
         element: link,
-        message: "Link missing descriptive text",
+        message: "Link missing descriptive text (auto-fixed)",
       });
     }
   });
@@ -93,20 +97,10 @@ const AccessibilityWidget = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 20,
-        right: 20,
-        background: "#fff",
-        border: "1px solid #333",
-        padding: "1rem",
-        zIndex: 9999,
-      }}
-    >
-      <h3>Accessibility Widget</h3>
+    <div className="accessibility-widget">
+      <h2>Accessibility Issues</h2>
       {issues.length === 0 ? (
-        <p>No issues found!</p>
+        <p>No accessibility issues found.</p>
       ) : (
         <ul>
           {issues.map((issue, idx) => (

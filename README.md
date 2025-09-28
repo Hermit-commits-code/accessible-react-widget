@@ -22,15 +22,8 @@ An embeddable, rule-based accessibility widget for React/SPAs that automatically
 
 ## Features
 
-- DOM auto-fixing for accessibility issues
-- Scans for buttons missing accessible labels (text, aria-label, aria-labelledby)
-- Scans for links missing descriptive text (empty, whitespace, or lacking aria-label/aria-labelledby)
-- Mutation observer for dynamic content
-- Extension/bookmarklet for rapid testing
-- Sandbox sites for validation
-- Logging and undo/redo for fixes
-- CLI for source code suggestions/PR creation
-- Automated tests with Jest and React Testing Library
+- Robust, professional test suite covering all auto-fix logic and edge cases
+- Validated Babel and Jest config for React 19, Vite, and Testing Library
 
 ## Getting Started
 

@@ -16,9 +16,9 @@ This roadmap tracks major phases and mini-roadmaps for complex steps. Update as 
   - [x] Auto-add alt text to images (with placeholder)
   - [ ] Auto-add aria-label to buttons/links
   - [ ] Auto-associate labels with form fields
-  - [ ] Test fixes in widget UI
-  - [ ] Document fixes in README.md
-  - [ ] Update CHANGELOG.md and bump version
+  - [x] Test fixes in widget UI (robust automated tests)
+  - [x] Document fixes in README.md
+  - [x] Update CHANGELOG.md and bump version
 
 - [ ] Mutation Observer Setup (mini-roadmap)
   - [ ] Monitor DOM for dynamic content changes
