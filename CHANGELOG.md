@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0] - 2025-09-28
+
+- Robust auto-association of labels with form fields (covers all cases, not just fields with id)
+- Auto-adds aria-label to buttons and links missing accessible labels
+- Tracker for scanned elements and issues in console
+- Documentation updated for new auto-fix features
+
 ## [0.7.0] - 2025-09-28
 
 - Added ARIA role and attribute scanning and auto-fix logic (role='button', role='textbox', aria-checked, aria-expanded, etc.)

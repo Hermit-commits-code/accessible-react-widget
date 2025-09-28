@@ -64,12 +64,14 @@ test("auto-fixes and reports all buttons missing accessible labels", () => {
   const fixedBtns = Array.from(
     document.querySelectorAll('button[aria-label="Accessible button"]')
   );
-  // The scan only runs once, so no button is auto-fixed unless present at mount
-  expect(fixedBtns.length).toBe(0);
-  const issues = screen.queryAllByText(
-    /Button missing accessible label \(auto-fixed\)/i
+  expect(fixedBtns.length).toBe(2); // Two buttons missing labels
+  fixedBtns.forEach((btn) => {
+    expect(btn).toHaveAttribute("aria-label", "Accessible button");
+  });
+  const issues = screen.getAllByText(
+    /Button missing accessible label \(auto-fixed with aria-label\)/i
   );
-  expect(issues.length).toBe(0);
+  expect(issues.length).toBe(2);
 });
 
 test("does not report buttons with accessible labels or text", () => {
@@ -88,16 +90,19 @@ test("does not report buttons with accessible labels or text", () => {
   expect(document.querySelector("button")).not.toBeNull();
 });
 
-test("auto-fixes and reports all links missing descriptive text", () => {
+test("auto-fixes and reports all links missing accessible labels", () => {
   render(<AccessibilityWidget />);
   const fixedLinks = Array.from(document.querySelectorAll("a")).filter(
     (link) => link.getAttribute("aria-label") === "Accessible link"
   );
-  expect(fixedLinks.length).toBe(0);
-  const issues = screen.queryAllByText(
-    /Link missing descriptive text \(auto-fixed\)/i
+  expect(fixedLinks.length).toBe(2); // Two links missing labels
+  fixedLinks.forEach((link) => {
+    expect(link).toHaveAttribute("aria-label", "Accessible link");
+  });
+  const issues = screen.getAllByText(
+    /Link missing accessible label \(auto-fixed with aria-label\)/i
   );
-  expect(issues.length).toBe(0);
+  expect(issues.length).toBe(2);
 });
 
 test("does not report links with descriptive text or accessible labels", () => {

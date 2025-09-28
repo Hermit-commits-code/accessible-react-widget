@@ -23,6 +23,12 @@ An embeddable, rule-based accessibility widget for React/SPAs that automatically
 ## Features
 
 - Robust, professional test suite covering all auto-fix logic and edge cases
+- Auto-fixes images missing alt text by adding placeholder alt
+- Auto-adds aria-label to buttons and links missing accessible labels
+- Robustly auto-associates labels with form fields (covers all cases, not just fields with id)
+- Scans and auto-fixes ARIA roles and attributes (role, aria-checked, aria-expanded, etc.)
+- Supports customizable rules via `rules` prop for fine-grained accessibility enforcement
+- Monitors and auto-fixes dynamic DOM changes (Mutation Observer support, see roadmap)
 - Validated Babel and Jest config for React 19, Vite, and Testing Library
 
 ## Getting Started
