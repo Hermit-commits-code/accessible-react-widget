@@ -51,9 +51,13 @@ test("does not report links with descriptive text or accessible labels", () => {
   expect(screen.queryByText(/Labelled by link span/)).not.toBeNull();
 });
 
-test("finds images missing alt text", () => {
+test("auto-fixes images missing alt text", () => {
   render(<AccessibilityWidget />);
-  expect(screen.getByText(/Image missing alt text/i)).toBeInTheDocument();
+  const fixedImg = document.querySelector('img[src="/test.png"]');
+  expect(fixedImg).toHaveAttribute("alt", "Placeholder alt text");
+  expect(
+    screen.getByText(/Image missing alt text \(auto-fixed\)/i)
+  ).toBeInTheDocument();
 });
 
 test("does not report images with alt text", () => {

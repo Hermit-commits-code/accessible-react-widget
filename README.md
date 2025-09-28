@@ -1,3 +1,6 @@
+- Scans for form fields missing labels (input, select, textarea)
+  +- Scans for form fields missing labels (input, select, textarea)
+- Auto-fixes images missing alt text by adding placeholder alt
 - Scans for links missing descriptive text (empty, whitespace, or lacking aria-label/aria-labelledby)
   +- Scans for links missing descriptive text (empty, whitespace, or lacking aria-label/aria-labelledby)
 - Scans for form fields missing labels (input, select, textarea)

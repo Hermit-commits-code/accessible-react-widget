@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2025-09-28
+
+- Auto-fixes images missing alt text by adding placeholder alt
+- Added automated tests for image alt auto-fix
+
 ## [0.4.0] - 2025-09-28
 
 - Added scanning for form fields missing labels (input, select, textarea)

@@ -5,10 +5,12 @@ function scanForAccessibilityIssues() {
   const issues = [];
   document.querySelectorAll("img").forEach((img) => {
     if (!img.hasAttribute("alt") || img.getAttribute("alt") === "") {
+      // Auto-fix: add placeholder alt text
+      img.setAttribute("alt", "Placeholder alt text");
       issues.push({
-        type: "missing-alt",
+        type: "missing-alt-fixed",
         element: img,
-        message: "Image missing alt text",
+        message: "Image missing alt text (auto-fixed)",
       });
     }
   });

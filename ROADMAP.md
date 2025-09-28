@@ -4,16 +4,23 @@ This roadmap tracks major phases and mini-roadmaps for complex steps. Update as 
 
 ## Phase 1: Core Widget
 
-- [x] DOM scanning logic
+- [x] Scanning Logic (mini-roadmap)
+
   - [x] Scan for images missing alt text
   - [x] Scan for buttons missing accessible labels
   - [x] Scan for links missing descriptive text
   - [x] Scan for form fields missing labels
-- [ ] Rule-based fix engine
-  - [ ] Auto-add alt text to images (with placeholder)
+
+- [ ] Rule-based Fix Engine (mini-roadmap)
+
+  - [x] Auto-add alt text to images (with placeholder)
   - [ ] Auto-add aria-label to buttons/links
   - [ ] Auto-associate labels with form fields
-- [ ] Mutation observer setup
+  - [ ] Test fixes in widget UI
+  - [ ] Document fixes in README.md
+  - [ ] Update CHANGELOG.md and bump version
+
+- [ ] Mutation Observer Setup (mini-roadmap)
   - [ ] Monitor DOM for dynamic content changes
   - [ ] Re-scan and auto-fix on mutations
 
@@ -36,17 +43,23 @@ This roadmap tracks major phases and mini-roadmaps for complex steps. Update as 
 
 ### Mini-Roadmaps
 
-#### Core Widget: Scanning Logic & Auto-Fixing
+#### Core Widget: Scanning Logic (completed)
 
-- [x] Expand scanning logic to cover:
-  - Images without alt text
-  - Buttons without accessible labels
-  - Links without descriptive text
-  - Form fields without labels
-- [ ] Implement auto-fix logic for each issue:
-  - Add placeholder alt text to images
-  - Add aria-label to buttons/links
-  - Associate labels with form fields
-- [ ] Test fixes in the widget UI
-- [ ] Document all rules and fixes in README.md
-- [ ] Update CHANGELOG.md and bump version after each feature
+- Scan for images missing alt text
+- Scan for buttons missing accessible labels
+- Scan for links missing descriptive text
+- Scan for form fields missing labels
+
+#### Core Widget: Rule-based Fix Engine
+
+- Auto-add alt text to images (with placeholder)
+- Auto-add aria-label to buttons/links
+- Auto-associate labels with form fields
+- Test fixes in widget UI
+- Document fixes in README.md
+- Update CHANGELOG.md and bump version
+
+#### Core Widget: Mutation Observer Setup
+
+- Monitor DOM for dynamic content changes
+- Re-scan and auto-fix on mutations
