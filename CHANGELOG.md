@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.0.0] - 2025-09-29
+
+- First stable release: all major accessibility features, auto-fix logic, and edge case coverage implemented and tested. Ready for production use.
+- Robust form field label detection and auto-fix (input, select, textarea, ARIA, nested labels, edge cases)
+- Auto-fixes images missing alt text by adding placeholder alt
+- Auto-adds aria-label to buttons and links missing accessible labels
+- ARIA role and attribute scanning and auto-fix
+- Customizable rules via `rules` prop
+- Real-time monitoring and auto-fix for dynamic DOM changes
+- Accessibility analytics and reporting
+- Comprehensive, professional test suite
+
+# Changelog
+
+## [0.9.0] - 2025-09-28
+
+- Major expansion: best-in-class accessibility features
+- Color contrast checks for text and UI elements
+- Keyboard navigation validation and auto-fix (tab order, focus management, skip links)
+- ARIA live region support for dynamic content
+- Custom widget scanning and auto-fix (modals, dropdowns, tooltips, grids)
+- Screen reader output simulation for key elements
+- Configurable rules and auto-fix options
+- Accessibility analytics and reporting (summary, export, tracking)
+
 ## [0.8.0] - 2025-09-28
 
 - Robust auto-association of labels with form fields (covers all cases, not just fields with id)

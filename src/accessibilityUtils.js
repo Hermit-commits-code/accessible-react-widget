@@ -1,18 +1,31 @@
 // Utility for accessibility scanning
+import { scanTables } from "./scan/scanTables";
+import { scanARIAWidgets } from "./scan/scanARIAWidgets";
+import { scanFormFields } from "./scan/scanFormFields";
+import { scanColorContrast } from "./scan/scanColorContrast";
+import { scanHeadings } from "./scan/scanHeadings";
+import { scanLandmarks } from "./scan/scanLandmarks";
+import { scanLists } from "./scan/scanLists";
 
-export function scanForAccessibilityIssues(rules = {}) {
+export function scanForAccessibilityIssues(rules = {}, root = document) {
   const issues = [];
+  // Modular scan: Color contrast
+  issues.push(...scanColorContrast(root));
   let scanStats = {
     roles: 0,
     images: 0,
     buttons: 0,
     links: 0,
     formFields: 0,
+    headings: 0,
+    landmarks: 0,
+    tables: 0,
+    lists: 0,
     issues: 0,
   };
 
   // ARIA role and attribute checks
-  document.querySelectorAll("[role]").forEach((el) => {
+  (root || document).querySelectorAll("[role]").forEach((el) => {
     scanStats.roles++;
     if (rules.ariaRoles === false) return;
     const role = el.getAttribute("role");
@@ -82,14 +95,30 @@ export function scanForAccessibilityIssues(rules = {}) {
     }
   });
 
+  // Modular scan: Headings
+  issues.push(...scanHeadings(root));
+
+  // Modular scan: Landmarks
+  issues.push(...scanLandmarks(root));
+
+  // Modular scan: Lists
+  issues.push(...scanLists(root));
+
+  // Modular scan: ARIA widgets
+  issues.push(...scanARIAWidgets(root));
+
   // Auto-fix for images missing alt
-  document.querySelectorAll("img").forEach((img) => {
+  (root || document).querySelectorAll("img").forEach((img) => {
     scanStats.images++;
     if (rules.imgAlt === false) return;
-    if (!img.hasAttribute("alt") || img.getAttribute("alt") === "") {
+    const alt = img.getAttribute("alt");
+    if (
+      (!img.hasAttribute("alt") || alt === "") &&
+      alt !== "Placeholder alt text"
+    ) {
       img.setAttribute("alt", "Placeholder alt text");
       issues.push({
-        type: "missing-alt-fixed",
+        type: "image",
         element: img,
         message: "Image missing alt text (auto-fixed)",
       });
@@ -97,7 +126,7 @@ export function scanForAccessibilityIssues(rules = {}) {
   });
 
   // Auto-fix for buttons missing accessible labels
-  document.querySelectorAll("button").forEach((btn) => {
+  (root || document).querySelectorAll("button").forEach((btn) => {
     scanStats.buttons++;
     if (rules.buttonLabels === false) return;
     const hasText = btn.textContent && btn.textContent.trim().length > 0;
@@ -118,81 +147,38 @@ export function scanForAccessibilityIssues(rules = {}) {
   });
 
   // Auto-fix for links missing accessible labels
-  document.querySelectorAll("a").forEach((link) => {
+  (root || document).querySelectorAll("a").forEach((link) => {
     scanStats.links++;
     if (rules.linkLabels === false) return;
     const hasText = link.textContent && link.textContent.trim().length > 0;
+    const ariaLabel = link.getAttribute("aria-label");
     const hasAriaLabel =
-      link.hasAttribute("aria-label") &&
-      link.getAttribute("aria-label").trim().length > 0;
+      ariaLabel &&
+      ariaLabel.trim().length > 0 &&
+      ariaLabel !== "Accessible link";
     const hasAriaLabelledBy =
       link.hasAttribute("aria-labelledby") &&
       link.getAttribute("aria-labelledby").trim().length > 0;
-    if (!hasText && !hasAriaLabel && !hasAriaLabelledBy) {
+    if (
+      !hasText &&
+      !hasAriaLabel &&
+      !hasAriaLabelledBy &&
+      ariaLabel !== "Accessible link"
+    ) {
       link.setAttribute("aria-label", "Accessible link");
       issues.push({
-        type: "missing-link-label-fixed",
+        type: "link",
         element: link,
         message: "Link missing accessible label (auto-fixed with aria-label)",
       });
     }
   });
 
-  // Form field label logic
-  const formFields = document.querySelectorAll("input, select, textarea");
-  scanStats.formFields = formFields.length;
-  formFields.forEach((field) => {
-    if (rules.formLabels === false) return;
-    if (field.type === "hidden" || field.disabled) return;
-    const id = field.getAttribute("id");
-    let hasLabel = false;
-    // Case 1: Associated label via for attribute
-    if (id) {
-      const prev = field.previousElementSibling;
-      hasLabel =
-        prev &&
-        prev.tagName.toLowerCase() === "label" &&
-        prev.getAttribute("for") === id;
-    }
-    // Case 2: Wrapped in a label
-    if (!hasLabel && field.closest("label")) {
-      hasLabel = true;
-    }
-    // Case 3: Has aria-label or aria-labelledby
-    const hasAriaLabel =
-      field.hasAttribute("aria-label") &&
-      field.getAttribute("aria-label").trim().length > 0;
-    const hasAriaLabelledBy =
-      field.hasAttribute("aria-labelledby") &&
-      field.getAttribute("aria-labelledby").trim().length > 0;
+  // Modular scan: Form fields
+  issues.push(...scanFormFields(root));
 
-    // Case 4: No label, no id, no aria-label, no aria-labelledby
-    if (!hasLabel && !hasAriaLabel && !hasAriaLabelledBy) {
-      // If field has id, associate with label using for
-      if (id) {
-        const autoLabel = document.createElement("label");
-        autoLabel.setAttribute("for", id);
-        autoLabel.textContent = "Auto-generated label";
-        field.parentNode.insertBefore(autoLabel, field);
-        issues.push({
-          type: "missing-field-label-fixed",
-          element: field,
-          message: `Form field missing label (auto-fixed with label for='${id}')`,
-        });
-      } else {
-        // If no id, wrap field in a label
-        const wrapper = document.createElement("label");
-        wrapper.textContent = "Auto-generated label ";
-        field.parentNode.insertBefore(wrapper, field);
-        wrapper.appendChild(field);
-        issues.push({
-          type: "missing-field-label-fixed",
-          element: field,
-          message: "Form field missing label (auto-fixed by wrapping in label)",
-        });
-      }
-    }
-  });
+  // Modular scan: Tables
+  issues.push(...scanTables(root));
 
   scanStats.issues = issues.length;
   if (typeof window !== "undefined" && window.console) {

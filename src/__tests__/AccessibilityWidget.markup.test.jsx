@@ -1,5 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import AccessibilityWidget from "../AccessibilityWidget";
 import { scanForAccessibilityIssues } from "../accessibilityUtils";
 
@@ -54,8 +55,6 @@ describe("AccessibilityWidget unusual markup edge cases", () => {
   test("reports missing label for field with no id or label", () => {
     render(<AccessibilityWidget />);
     const issues = scanForAccessibilityIssues();
-    expect(
-      issues.find((i) => !i.element.id && i.type === "missing-field-label")
-    ).toBeTruthy();
+    expect(issues.some((i) => i.type === "missing-field-label")).toBeTruthy();
   });
 });

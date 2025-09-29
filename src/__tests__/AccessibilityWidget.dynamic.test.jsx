@@ -1,5 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import AccessibilityWidget from "../AccessibilityWidget";
 import { scanForAccessibilityIssues } from "../accessibilityUtils";
 
@@ -31,8 +32,8 @@ describe("AccessibilityWidget dynamic DOM", () => {
 
     // Check that new elements are auto-fixed
     expect(newImg.getAttribute("alt")).toBe("Placeholder alt text");
-    // Button is not auto-fixed unless present at mount
-    expect(newBtn.getAttribute("aria-label")).toBe(null);
+    // Button is now auto-fixed dynamically
+    expect(newBtn.getAttribute("aria-label")).toBe("Accessible button");
     const autoLabel = document.querySelector('label[for="dynamicField"]');
     expect(autoLabel).toBeTruthy();
     expect(autoLabel.textContent).toBe("Auto-generated label");
