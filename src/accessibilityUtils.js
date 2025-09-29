@@ -6,11 +6,28 @@ import { scanColorContrast } from "./scan/scanColorContrast";
 import { scanHeadings } from "./scan/scanHeadings";
 import { scanLandmarks } from "./scan/scanLandmarks";
 import { scanLists } from "./scan/scanLists";
+import { scanKeyboardNavigation } from "./scan/scanKeyboardNavigation";
+import { scanAriaLiveRegions } from "./scan/scanAriaLiveRegions";
+import { scanCustomWidgets } from "./scan/scanCustomWidgets";
 
 export function scanForAccessibilityIssues(rules = {}, root = document) {
   const issues = [];
   // Modular scan: Color contrast
-  issues.push(...scanColorContrast(root));
+  if (rules.colorContrast !== false) {
+    issues.push(...scanColorContrast(root));
+  }
+  // Modular scan: Keyboard navigation
+  if (rules.keyboardNavigation !== false) {
+    issues.push(...scanKeyboardNavigation(root));
+  }
+  // Modular scan: ARIA live regions
+  if (rules.ariaLiveRegions !== false) {
+    issues.push(...scanAriaLiveRegions(root));
+  }
+  // Modular scan: Custom widgets
+  if (rules.customWidgets !== false) {
+    issues.push(...scanCustomWidgets(root));
+  }
   let scanStats = {
     roles: 0,
     images: 0,
